@@ -1,26 +1,22 @@
-import java.util.*;
+import java.util.HashMap;
 
 class Solution {
     public int[] solution(int[] numbers) {
-        int i,j,z=0;
-        int cnt=0;
-        HashSet<Integer> ar=new HashSet<Integer>();
-        Arrays.sort(numbers);
+       HashMap<Integer, Integer> temp = new HashMap<>();
 
-    for(i=0;i<numbers.length;i++){
-        for(j=0;j<numbers.length;j++){
-            if(i!=j)
-            ar.add((numbers[i]+numbers[j]));
+        for (int i = 0; i < numbers.length - 1; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                temp.put(numbers[i] + numbers[j], 0); 
+            }
         }
-    }
 
-int[] answer = new int[ar.size()];
-Iterator iter=ar.iterator();
-while(iter.hasNext())
-answer[cnt++]=(int)iter.next();
+        int[] result = temp.keySet()
+                .stream()
+                .sorted()
+                .mapToInt(i -> i)
+                .toArray();
 
-Arrays.sort(answer);
-
-        return answer;
+        return result;
+    
     }
 }
